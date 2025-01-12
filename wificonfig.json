@@ -1,0 +1,16 @@
+{
+    "aironet": [
+        {
+            "host_ip" : "10.31.10.3",
+            "hostname": "31-ciscoAP",
+            "username": "admin",
+            "password": "pass",
+            "ssid": "31-resortworld-Glen",
+            "authentication": "open",
+            "key-man" : "wpa",
+            "wifi-pass": "C1sco123",
+            "channel":"9",
+            "enc-mod" : "tkip"
+        }
+    ]
+}
