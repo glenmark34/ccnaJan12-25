@@ -500,7 +500,7 @@ ROUTE REDISTRIBUTION
 
 @R1 (for BGP and OSPF connection)
 
-config
+config t
 router ospf 1
 default-information originate always
 end
