@@ -516,7 +516,7 @@ exit
 
 !Pasok OSPF kay EIGRP na matapobre
 router eigrp 100
-redistribute ospf1 metric 1544 2000 255 1 1500
+redistribute ospf 1 metric 1544 2000 255 1 1500
 end
 
 @P1
