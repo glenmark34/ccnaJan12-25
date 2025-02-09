@@ -500,7 +500,7 @@ ROUTE REDISTRIBUTION
 
 @R1 (for BGP and OSPF connection)
 
-config t
+config
 router ospf 1
 default-information originate always
 end
@@ -516,7 +516,7 @@ exit
 
 !Pasok OSPF kay EIGRP na matapobre
 router eigrp 100
-redistribute ospf 1 metric 1544 2000 255 1 1500
+redistribute ospf1 metric 1544 2000 255 1 1500
 end
 
 @P1

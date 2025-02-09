@@ -1,0 +1,122 @@
+Function ni CISCO Switch
+1) POE 802.3af
+2) SVI 
+3) DHCP Server 
+4) VLAN Creation and Management 
+5) Remembering MAC Addresses ( SMA) 
+
+LLDP = Link Layer Discovery Protocol
+CDP = Cisco Discovery Protocol
+
+
+
+Top 5 brands: PANG MAYAMAN
+1.Cisco = 75% =google,aws,azure,etc,
+        Cisco Invented the FirstEthernetSW
+        Cisco Patent Expires.
+2.Dell
+3.HP procurve
+4.Juniper/Fortinet
+5.Huawei      
+
+Wireshark = 
+
+SPANNING TREE 
+SWITCHES TESTING 
+show spanning-tree vlan 1
+loop for in port 2 and 7 in cisco switches.
+
+LISTENING
+LEARNING
+BLOCK = orange color / FORWARDING = green color 
+
+
+#### PENETRATION TESTING KALI LINUX ######
+yersinia -G
+
+1) Mac Address Table overflow
+2) VLAN Hopping Attack
+3) ARP Spoofing ( ARP Poisoning)
+4) DHCP Snooping Attack (Rogue DHCP Server)
+5)Spanning Tree Protocol Attact (STP
+
+###CPU usage utilization in SWITCH
+sh process cpu | inc util
+sh cdp neighbor 
+
+
+802.1Q = SWITCHES ACCESS / TRUNK
+802.1D = STP  = dp rp ap backup P
+802.1W = RSTP = SPEED
+802.1s = MSTP = superman
+
+
+
+#####ANSIBLE LINUX 
+cd /etc/ansible
+ls (display list)
+cat hosts (for display content )
+nano hosts ( edit content)
+ansible-playbook r1.yml (run the ansible command)
+
+ssh-keygen -f "/root/.ssh/known_hosts" -R 208.8.8.12 (delete file encryption)
+ssh glen@10.31.1.4
+
+
+
+############################# for ROCKY LINUX - HOST 
+
+[VPNJP]
+208.8.8.12
+[VPNJP:vars]
+ansible_user=admin
+ansible_password=pass
+ansible_connection=network_cli
+ansible_port=22
+ansible_netwrok_os=ios
+ansible_ssh_common_args="-o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-rsa"
+
+
+[COREBABA]
+10.31.1.4
+[COREBABA:vars]
+ansible_user=glen
+ansible_password=admin@123
+ansible_connection=network_cli
+ansible_port=22
+ansible_netwrok_os=ios
+ansible_ssh_common_args="-o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-rsa"
+
+
+##################for ANSIBLE command for YML
+
+ ---
+  - name: MORELOOP
+    hosts: VPNPH
+    gather_facts: no
+    become: yes
+
+    tasks:
+      - name: LOOPPH
+        ios_command:
+          commands:
+            - conf t
+            - int lo 75
+            - ip add 75.75.75.75 255.255.255.255
+        vars:
+          ansible_network_os: ios
+
+  - name: LOOPJP
+    hosts: VPNJP
+    gather_facts: no
+    become: yes
+
+    tasks:
+      - name: LOOPJP
+        ios_command:
+          commands:
+            - conf t
+            - int lo 75
+            - ip add 75.75.75.75 255.255.255.255
+        vars:
+          ansible_network_os: ios
