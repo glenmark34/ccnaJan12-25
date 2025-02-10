@@ -1,0 +1,218 @@
+SWITCHING
+
+Function of Cisco Switch
+1. PoE - Power Over Ethernet 802.3af
+2. SVI - (Switch VLAN Interface)
+3. DHCP (Dynamic Host Configuration Protocol - Taga Bigay ng IP)
+4. VLAN Creation / Management
+5. Remembering Mac Address
+
+- Switch Commands:
+	- Show CDP Neighbor (Cisco Discovery Protocol)
+	- lldp run (enable lldp) (Link-Layer Discovery Protocol)
+	- cdp run (enable cdp)
+
+Top 5 brands: PANG MAYAMAN
+1.Cisco = 75% =google,aws,azure,etc,
+        Cisco Invented the FirstEthernetSW
+        Cisco Patent Expires.
+2.Dell
+3.HP procurve
+4.Juniper/Fortinet
+5.Huawei  
+
+
+TASK6: HOW TO GET FIRED IMMEDIATELY!
+SIRAIN NG TODO SI @taas at @baba:
+config t
+NO spanning-tree vlan 1-999
+end
+AYUSIN ULET IS @taas: AT @baba
+config t
+spanning-tree vlan 1-999
+end
+
+
+Master the 4 super Hereos of Switching
+Qpid: 802.1Q:trunking
+"make switch love each other!"LQ
+Darna: 802.1d: STP
+"slowly protect switches" , wait 30 seconds 
+lis=15, lrn=15s, fwd: or blk.
+WonderWoman: 802.1w: rapidSTP
+"quickly,Brutally protect switches"
+SuperMan: 802.1s: MiSTP
+"Protect Many Switches at the same time!"
+
+- Trunk Port (LALABAS SA EXAM)
+	- STED (Switchport Trunk Encapsulation Dot1q)
+	- SMT (Switchport Mode Trunk)
+	- STAV (Switchport Trunk Allowed 1-100)
+
+4 States of ports
+- Listening
+- Learning
+- Forward (green)
+- Blocking (Amber)
+
+Network Attacks
+1. MAC Address Table Overflow
+2. VLAN Hopping Attack
+3. Art Spoofing (ARP Poisoning)
+4. DHCP Snooping Attack (Rouge DHCP Server)
+5. Spanning Tree Protocol (STP) Attack
+
+- Sh process cpu | inc uti
+
+How to Lock switch
+Protect the Most Important SWitch in your 
+Office: RootBridge = TAAS, 2ndRootBridge = BABA:
+TAAS:/d1       32786 --> 24576
+Config t
+spanning-tree mode pvst
+spanning-tree vlan 1-100 root Primary
+do sh spanning-tree vlan 1
+BABA:/d2         32768->   28672
+Config t              
+spanning-tree mode pvst
+spanning-tree vlan 1-100 root Secondary
+do sh spanning-tree vlan 1
+
+
+Task9.2: STP Port Roles: 802.1D protect switches slowly/gently 30s
+DesignatedPort/DP = fwd port of Root Bridge
+RootPort/RP = fwd port of non-root Bridge(1 only)
+AlternatePort/AP = blk port of nonRootPorts
+BackupPort = yuck yuck, suck urself. enter urself, self-service
+
+
+SISE - show interface Status Err-disabled
+
+
+PORT SECURITY
+config t
+Int fa0/6
+switchport mode access
+switchport port-security
+switchport port-security mac-address Sticky
+switchport port-security maximum 1
+switchport port-security violation shutdown
+Int fa0/8
+switchport mode access
+switchport port-security
+switchport port-security mac-address Sticky
+switchport port-security maximum 1
+switchport port-security violation shutdown
+do sh port-security address
+
+
+DISABLE IT
+
+config t
+Int fa0/6
+NO switchport port-security
+shut
+no shut
+Int fa0/8
+NO switchport port-security
+shut
+no shut
+
+
+
+HSRP: hot standby routing protocol: Cisco Brand SW
+VRRP: virtual router redundancy protocol: any brand
+GLBP: global load balancing protocol: all Cisco Router
+
+
+
+TASK17: Port-Aggregation/Etherchannel: 100% exam LAB!!!
+LACP:LINK AGGREGATION CONTROL PROTOCOL = ieee worldStandrad
+cisco = PortAggregationProtocol: PaGP
+Combinding Two/More Layer 2 links AS ONE! Unite/UNITY
+
+
+config t
+Int Range fa0/10-12
+ channel-group 1 mode active 	(cgma)
+ channel-protocol Lacp 	(cpl)
+ do sh etherchannel summary 
+ do sh int po1 | inc BW
+	
+
+
+ANSIBLE Automation
+root
+C1sc0123
+- ip addr
+- cd /etc/ansible
+- ls
+- cast hosts
+- nano hosts
+- change Router Name to VPNPH
+- Change IP to VM IP of VPNPH
+- CTRL S (SAVE) AND CONTROL X (EXIT)
+- access nano r1.yml
+- chane name: CREATELOOP
+- hosts:VPNPH
+- save and exit
+- type  ansible-playbook r1.yml
+- must failed since no authentication yet.
+- ssh-keygen -f "/root/.ssh/known_hosts" -R 208.8.8.11
+- ssh-keygen -f "/root/.ssh/known_hosts" -R 208.8.8.12
+- ssh-keygen -f "/root/.ssh/known_hosts" -R 10.21.1.4
+- ssh admin@208.8.8.11
+- nano hosts
+- CREATE 
+ansible_user=admin
+ansible_password=pass
+ansible_connection=network_cli
+ansible_port
+ansible_network_os=ios
+ansible_ssh_common_args="-o KexAlgorithms=+diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-r>
+- CTRL S (SAVE) AND CONTROL X (EXIT)
+
+-nano vpnjp.yml
+-   - name: VPNJP LOOP
+    hosts: 
+      - VPNJP
+      - VPNPH
+    gather_facts: no
+    become: yes
+
+    tasks:
+      - name: GAWALOOP
+        ios_command:
+          commands:
+            - config t
+            - int lo 50
+            - ip add 50.50.50.50 255.255.255.255
+        vars:
+          ansible_network_os: ios
+
+
+	- ACCESS COREBABA
+		ip domain-name ccna.com
+		username junald privilege 15 secret C1sc0123
+		crypto key generate rsa modulus 2048
+		ip ssh version 2
+		line vty 0 14
+		 transport input ssh telnet
+		 login local
+
+	- ansible
+		nano run_all.yml
+
+	-  ssh junald@10.21.1.4
+
+
+
+
+
+
+
+
+
+
+
+
